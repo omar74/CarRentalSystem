@@ -1,0 +1,49 @@
+﻿@model CarRentalSystem.Models.Car
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container"> 
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+
+
+            <div class="form-group">
+                <label for="Name">item name</label>
+                @Html.TextBoxFor(x => x.Name, new{ @class="form-control", placeholder= "item_name" })
+            </div>
+            <div class="form-group">
+                <label for="id">item number</label>
+                @Html.TextBoxFor(x => x.id, new { @class = "form-control", placeholder = "item_number" })
+            </div>
+            <div class="form-group">
+                <label for="RentAmount">amount</label>
+                @Html.TextBoxFor(x => x.RentAmount, new { @class = "form-control", placeholder = "amount" })
+            </div>
+            <div class="form-group">
+                <label for="NumberOfChairs">Number Of Chairs</label>
+                @Html.TextBoxFor(x => x.NumberOfChairs, new { @class = "form-control", placeholder = "Number Of Chairs" })
+            </div>
+            <button type="submit" class="btn btn-success">Submit</button>
+        }
+    </div>
+    <div class="col-md-12">
+        @Html.ActionLink("pay","Index", new {Controller ="Paypal" }, new {@class = "btn btn-primary" })
+    </div>
+</body>
+</html>

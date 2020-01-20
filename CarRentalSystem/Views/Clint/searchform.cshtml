@@ -1,0 +1,111 @@
+﻿@model CarRentalSystem.ViewModel.SearchCarViewmodel
+<script src='@Url.Content("~/Scripts/jquery-1.10.2.js")'></script>
+<script>
+             $(document).ready(function () {
+                 $("#Showcarform").on("submit", function () {
+                     alert("i will send");
+                     var viewmodel = $(this).serialize();
+                     $.ajax({
+                         url: '@Url.Action("result", "Clint")',
+                         type: "POST",
+                         data: viewmodel,
+                         cache: false,
+                         async: true,
+                         success: function (rt, st, xhr) {
+                             if (st == "error") {
+                                 alert("Error :" + xhr.status + " " + xhr.statusText);
+                             }
+                             else {
+                                 alert("i will send");
+                                 if (rt.state == true) {
+                                     var viewmodel = rt.viewmodel;
+                                     $.ajax({
+                                         url: '@Url.Action("ShowCars", "Clint")',
+                                         type: "POST",
+                                         data: viewmodel,
+                                         cache: false,
+                                         async: true,
+                                         success: function (rt, st, xhr) {
+                                             if (st == "error") {
+                                                 alert("Error :" + xhr.status + " " + xhr.statusText);
+                                             }
+                                             else {
+                                                 $("#table").html(rt);
+                                             }
+                                         }
+                                     });
+                                 } else
+                                 {
+
+                                     var viewmodel = rt.viewmodel;
+                                     $.ajax({
+                                         url: '@Url.Action("submitnotvalid", "Clint")',
+                                         type: "POST",
+                                         data: viewmodel,
+                                         cache: false,
+                                         async: true,
+                                         success: function (rt, st, xhr) {
+                                             if (st == "error") {
+                                                 alert("Error :" + xhr.status + " " + xhr.statusText);
+                                             }
+                                             else {
+                                                
+                                                 $("#partial").html(rt);
+                                                 
+                                             }
+                                         }
+                                     });
+                                 }
+
+                             }
+                         }
+                     });
+
+                     return false;
+                 });
+             });
+</script>
+<div class="form-inline">
+    @using (Html.BeginForm("result", "Clint", FormMethod.Post, new { id = "Showcarform" }))
+    {
+        <div class="form-group">
+            @Html.LabelFor(c => c.car.categorytypeid)
+            @Html.DropDownListFor(c => c.car.categorytypeid, new SelectList(Model.categories, "id", "Name"), " select type  of car", new { @class = "form-control" })
+            @Html.ValidationMessageFor(c => c.car.categorytypeid,"", new { style = "display:block" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(c => c.car.color)
+@{if (Model.colorstate == 1)
+       {
+            @Html.TextBoxFor(c => c.car.color, new { @class = "form-control", id = "input-validation-error" })
+            @Html.ValidationMessageFor(c => c.car.color, "", new { style = "display:block" })
+            <span class="field-validation-error" style="display:block"> @Model.messageerror </span>
+       }
+  else
+  {
+          @Html.TextBoxFor(c => c.car.color, new { @class = "form-control" })
+          @Html.ValidationMessageFor(c => c.car.color, "", new { style = "display:block" })
+  }
+}
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(c => c.car.Model)
+            @Html.TextBoxFor(c => c.car.Model, new { @class = "form-control" })
+            @Html.ValidationMessageFor(c => c.car.Model, "", new { style = "display:block" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(c => c.car.NumberOfChairs)
+            @Html.TextBoxFor(c => c.car.NumberOfChairs, new { @class = "form-control" })
+            @Html.ValidationMessageFor(c => c.car.NumberOfChairs, "", new { style = "display:block" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(c => c.car.RentAmount)
+            @Html.TextBoxFor(c => c.car.RentAmount, new { @class = "form-control" })
+            @Html.ValidationMessageFor(c => c.car.RentAmount, "", new { style = "display:block" })
+            @Html.HiddenFor(c => c.id)
+        </div>
+        @Html.AntiForgeryToken()
+        <input type="submit" class="btn btn-primary" value="Show Cars" id="submitformshow" />
+    }
+</div>
+

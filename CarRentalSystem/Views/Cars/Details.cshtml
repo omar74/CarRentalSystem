@@ -1,0 +1,18 @@
+﻿@model CarRentalSystem.Models.Car
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h2>@Model.Name</h2>
+<ul class="dl-horizontal">
+    <li>Name:@Model.Name</li>
+    <li>Color: @Model.color</li>
+    <li>Category Type: @Model.categorytype.Name</li>
+    <li>Number Of Chairs:@Model.NumberOfChairs</li>
+    <li>Rent Amount:@Model.RentAmount</li>
+    <li><img src="@Url.Content(Model.ImagePath)" width="250" height="250" /></li>
+</ul>
+
+

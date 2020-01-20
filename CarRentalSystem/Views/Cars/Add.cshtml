@@ -1,0 +1,59 @@
+﻿@model CarRentalSystem.ViewModel.NewCarViewModel
+@{
+    ViewBag.Title = "Add";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h2>Add</h2>
+@using (Html.BeginForm("Add","Cars", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.Carr.Name)
+        @Html.TextBoxFor(m => m.Carr.Name)
+        @Html.ValidationMessageFor(m => m.Carr.Name)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Carr.color)
+        @Html.TextBoxFor(m => m.Carr.color)
+        @Html.ValidationMessageFor(m => m.Carr.color)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Carr.Model)
+        @Html.TextBoxFor(m => m.Carr.Model)
+        @Html.ValidationMessageFor(m => m.Carr.Model)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Carr.NumberOfChairs)
+        @Html.TextBoxFor(m => m.Carr.NumberOfChairs)
+        @Html.ValidationMessageFor(m => m.Carr.NumberOfChairs)  
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Carr.RentAmount)
+        @Html.TextBoxFor(m => m.Carr.RentAmount)
+        @Html.ValidationMessageFor(m => m.Carr.RentAmount)
+    </div>
+    <div class="checkbox">
+        <label>
+            @Html.CheckBoxFor(m => m.Carr.State) State Of Car !
+        </label>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Carr.categorytypeid)
+            @Html.DropDownListFor(m => m.Carr.categorytypeid, new SelectList(Model.Category, "id", "Name"), "Select Category-type", new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Carr.categorytypeid)
+        </div>
+        <div>
+            @Html.TextBox("file", "", new { type = "file" }) <br />
+
+            <input type="submit" value="Upload" />
+
+            @ViewBag.Message
+
+        </div>
+        @Html.HiddenFor(m => m.Carr.id);
+        <button type="submit" class="btn btn-primary" value="Cars">save</button>
+        }
+
+  
+

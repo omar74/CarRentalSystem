@@ -1,0 +1,14 @@
+﻿@using CarRentalSystem.Models;
+@{
+    ViewBag.Title = "loggedin";
+}
+
+@if (Session["id"]!=null)
+{
+    <h4>hello @Session["username"].ToString()</h4>
+}
+
+@if (User != null)
+{
+    @Html.ActionLink("logout", "logout");
+}

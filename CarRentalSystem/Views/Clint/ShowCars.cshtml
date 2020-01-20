@@ -1,0 +1,68 @@
+﻿@model CarRentalSystem.ViewModel.CarClintViewModel
+
+<table class="table">
+        <caption><center>Results</center></caption>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(c => c.car.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(c => c.car.Model)
+            </th>
+            <th>
+                @Html.DisplayNameFor(c => c.car.color)
+            </th>
+            <th>
+                @Html.DisplayNameFor(c => c.car.RentAmount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(c => c.car.State)
+            </th>
+            <th>
+                Show Information
+            </th>
+        </tr>
+
+        @foreach (var item in Model.cars)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(c => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(c => item.Model)
+                </td>
+                <td>
+                    @Html.DisplayFor(c => item.color)
+                </td>
+                <td>
+                    <span>$</span>@Html.DisplayFor(c => item.RentAmount)
+                </td>
+                @{
+                    if (item.State == true)
+                    {
+                <td>
+                    Un Availabe
+                </td>
+                    }
+                    else
+                    {
+                <td>
+                    Availabe
+                </td>
+                    }
+                }
+                <td>
+                   @* @Html.ActionLink("Information", "ShowInformationAboutCar", new { SSn = Model.clint.Ssn, category = item.categorytype.Name, id = item.id }, new { @class = "btn btn-primary" })*@
+                   @using (Html.BeginForm("ShowInformationAboutCar", "Clint", FormMethod.Post))
+                   {
+                        
+                     <input type="text" name="SSn" value="@Model.clint.Ssn" hidden/>
+                     <input type="text" name="id" value="@item.id " hidden />
+                     <input type="submit" class="btn btn-primary" value="Information" id="submitformshow" />
+                   }
+                </td>
+            </tr>
+                    }
+
+ </table>

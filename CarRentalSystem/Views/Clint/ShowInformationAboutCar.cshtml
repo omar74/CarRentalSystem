@@ -1,0 +1,101 @@
+﻿@model CarRentalSystem.ViewModel.CarClintViewModel
+
+@{
+    ViewBag.Title = "ShowInformationAboutCar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>ShowInformationAboutCar</h2>
+<script src='@Url.Content("~/Scripts/jquery-1.10.2.js")'></script>
+<script>
+    $(document).ready(function () {
+        $("#showForm").click(function () {
+            $("#partil").slideDown(1000);
+        });
+    });
+ </script>
+<div>
+    <h4>@Model.car.categorytype.Name</h4>
+    <hr />
+    <h2>Information</h2>
+
+    <div>
+        <h4>@Model.car.categorytype.Name</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+               @Html.DisplayNameFor(model => model.car.ImagePath)
+           </dt>
+            <dd>
+              <img src="@Url.Content(Model.car.ImagePath)" alt="@Model.car.Name" width="200" height="200" />
+           </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.car.Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.car.Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.car.color)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.car.color)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.car.Model)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.car.Model)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.car.RentAmount)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.car.RentAmount)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.car.State)
+            </dt>
+            @{if (Model.car.State == true)
+            {
+                <dd>
+                    Un Available
+                </dd>
+            }
+            else
+            {
+                <dd>
+                    Available
+                </dd>
+            }
+            }
+        </dl>
+        <div>
+            @{if (Model.car.State == true)
+            {
+                <button class="btn-danger" disabled>Rent</button>
+            }
+            else
+            {
+                <button class="btn-danger" id="showForm">Rent</button>
+
+            }
+            }
+        </div>
+        <div id="partil">
+            @Html.Partial("Reservationform",Model)
+        </div>
+         <div id="result">
+
+        </div>
+   </div>
+ </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>

@@ -1,0 +1,44 @@
+﻿@model IEnumerable<CarRentalSystem.Models.Category>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2> categories </h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NumberOfCars)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Image)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(c => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(c => item.NumberOfCars)
+            </td>
+            <td>
+               <img src="@Url.Content(@item.Image)" alt="@item.Name" width="200" height="200" />
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.id })
+            </td>
+        </tr>
+    }
+
+</table>

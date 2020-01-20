@@ -1,0 +1,62 @@
+﻿@model IEnumerable<CarRentalSystem.Models.Car>
+@{
+    ViewBag.Title = "Car";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="Scripts/jquery-1.10.2.min.js"></script>
+<script src="Scripts/jquery-1.10.2.js"></script>
+<script src="Scripts/jquery-1.7.1.min.js"></script>  
+
+<h2>Cars</h2>
+
+
+
+<table id="Car" class="table-striped ">
+    <thead>
+        <tr>
+            <th>car</th>
+            <th>Delete</th>
+            <th>type</th>
+        </tr>
+    </thead>
+    @foreach (var car in Model)
+            {
+        <tr>
+            <td>
+                <span class"control-label col-md-6" style="font-size: 150%">@Html.DisplayFor(modelitem => car.Name)</span>
+            </td>
+            <td class="table-column-css">
+                @Html.ActionLink("Delete", "Delete", new { id = car.id }, new { @class = "navbar-brand" })
+
+
+
+
+            </td>
+            <td>
+                <span class"control-label col-md-6" style="font-size: 150%">@Html.DisplayFor(modelitem => car.categorytype.Name)</span>
+            </td>
+            <td class="table-column-css">
+               
+                @Html.ActionLink("Edit      |", "Edit", new { id = car.id }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Details",  "Details", new { id = car.id }, new { @class = "navbar-brand" })
+
+            </td>
+            <td class="table-column-css">
+               
+                <img src="@Url.Content(car.ImagePath)" width="250" height="250" />
+            </td>
+        </tr>
+        
+          
+    }
+</table>
+<br />
+<input type="button" class="btn btn-primary" value="Add New Car" onclick="location.href='@Url.Action("Add", "Cars")'" />
+
+<script>
+    $(document.ready(function(){
+        $("#customers.js-delete").on("click", function () {
+            confirm("working");
+        });
+    }));
+</script>
